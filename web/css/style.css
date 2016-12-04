@@ -71,6 +71,7 @@ header ul li a:hover {
     padding-left: 1%;
     margin-top: 1vh;
     background-color: rgba(208, 234, 237, .8);
+    margin-bottom: 10px;
 }
 
 #contentBlock .post {
@@ -113,4 +114,24 @@ header ul li a:hover {
     background-color: rgb(243, 251, 255);
     border-radius: 5px;
     border: 2px solid rgb(98, 157, 184);
+}
+
+#contentBlock .col {
+    padding: 2%;
+    display: inline-block;
+    background-color:rgb(196, 231, 247);
+    margin-bottom: 20px;
+    margin-right: 1%;
+    border-radius: 10px;
+    border: 2px dashed rgb(90, 177, 216);
+    color: rgb(16, 91, 118);
+    font-size: 1.1em;
+}
+
+#contentBlock #leftCol {
+    width: 45%;
+}
+
+#contentBlock #rightCol {
+    width: 43%;
 }

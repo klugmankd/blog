@@ -18,4 +18,11 @@ class BlogController extends Controller
             "records" => $db->selectTable($db->connectDB(), "posts")
         ));
     }
+
+    /**
+     * @Route("/about", name="about")
+     */
+    public function aboutAction() {
+        return $this->render("about.html.twig");
+    }
 }
