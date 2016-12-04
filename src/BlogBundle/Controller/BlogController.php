@@ -4,10 +4,8 @@ namespace BlogBundle\Controller;
 
 
 use BlogBundle\Entity\Database;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 class BlogController extends Controller
 {
