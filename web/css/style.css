@@ -12,6 +12,10 @@ body {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
 }
 
+a {
+    cursor: pointer;
+}
+
 .animation {
     text-decoration: none;
     -webkit-trasition: all.6s ease;
@@ -43,13 +47,12 @@ header #title {
 
 header #navBar {
     display: none;
-    /*max-height: 30px;*/
 }
 
 header ul li {
-    list-style-type: none;
+    display: inline-block;  
     padding: 1%;
-    display: inline-block;
+    list-style-type: none;    
 }
 
 header ul li a {

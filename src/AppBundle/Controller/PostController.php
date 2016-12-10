@@ -1,12 +1,13 @@
 <?php
 
-namespace BlogBundle\Controller;
+namespace AppBundle\Controller;
 
 
-use BlogBundle\Entity\Database;
+//use AppBundle\Entity\Database;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -23,5 +24,17 @@ class PostController extends Controller
         $db = new Database();
         $post = $db->selectRecordById($db->connectDB(), "posts", $request->get('id'));
         return $this->render("post/post.html.twig", array("post" => $post));
+    }
+
+    /**
+     * @Route("/search", name="search_post")
+     * @Method("POST")
+     */
+    public function searchAction(Request $request) {
+        $db = new Database();
+        $post = $db->selectRecordByTitle($db->connectDB(), "posts", $request->get('title'));
+        return new JsonResponse(array(
+            "id" => $post['id']
+        ));
     }
 }
