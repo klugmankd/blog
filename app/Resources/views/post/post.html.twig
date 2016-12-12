@@ -1,0 +1,12 @@
+{% extends "blog.html.twig" %}
+{% block body %}
+    {{ parent() }}
+    {% block content %}
+        <div id="contentBlock">
+            <div class="post">
+                <div class="titlePost">{{ post.title }}</div>
+                <div class="contentPost">{{ post.content }}</div>
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,24 +53,36 @@ class Post
     /**
      * @var int
      *
-     * @ORM\Column(name="category", type="integer")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="tag", type="integer")
+     * @ORM\ManyToOne(targetEntity="Tag", inversedBy="posts")
+     * @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
      */
     private $tag;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="author", type="integer")
+     * @ORM\ManyToOne(targetEntity="Author", inversedBy="comments")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
      */
     private $author;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     */
+    private $comments;
+
+    public function __construct()
+    {
+       $this->comments = new ArrayCollection();
+    }
 
     /**
      * Get id

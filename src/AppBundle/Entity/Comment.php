@@ -38,14 +38,16 @@ class Comment
     /**
      * @var int
      *
-     * @ORM\Column(name="user", type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="comment")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="post", type="integer")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comment")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     private $post;
 

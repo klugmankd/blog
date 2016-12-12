@@ -1,0 +1,15 @@
+{% extends "blog.html.twig" %}
+{% block body %}
+    {{ parent() }}
+    {% block content %}
+        <div id="contentBlock">
+        {% for record in records %}
+            <div class="post">
+                <div class="titlePost">{{ record.title }}</div>
+                <div class="contentPost">{{ record.content }}</div>
+                <a class="animation" href="{{ path('show_post', {'id': record.id}) }}">Read more</a>
+            </div>
+        {% endfor %}
+        </div>
+    {% endblock %}
+{% endblock %}
