@@ -1,0 +1,14 @@
+{% extends "blog.html.twig" %}
+{% block body %}
+    {{ parent() }}
+    {% block content %}
+        <div id="contentBlock">
+        {% for category in categories %}
+            <div class="post">
+                <div class="titlePost">{{ author.name }}</div>
+                <a class="animation" href="{{ path('authors_post_show', {'id': category.id}) }}">Перейти до статей</a>
+            </div>
+        {% endfor %}
+        </div>
+    {% endblock %}
+{% endblock %}

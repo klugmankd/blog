@@ -138,3 +138,38 @@ header ul li a:hover {
 #contentBlock #rightCol {
     width: 43%;
 }
+
+#categoryName {
+    text-align: center;
+    font-family: "Courier 10 Pitch";
+    font-size: 1.7em;
+    color: rgba(58, 132, 132, 0.92);
+    border-bottom: 2px solid rgb(90, 177, 216);
+    padding: 2%;
+}
+
+.navigation {
+    text-align: center;
+    padding: 0.5%;
+    background-color: rgba(208, 234, 237, .8);
+    width: 58%;
+    margin-left: 20%;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: rgb(19, 109, 150);
+    text-transform: uppercase;
+    font-size: 1.4em;
+}
+
+.navigation a:hover {
+    color: rgb(22, 60, 150);
+}
+
+.navigation .current {
+    text-decoration: none;
+    color: rgb(22, 60, 150);
+    text-transform: uppercase;
+    font-size: 1.5em;
+}

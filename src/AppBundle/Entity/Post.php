@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * Post
@@ -13,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Post
 {
+    use ORMBehaviors\Timestampable\Timestampable;
+
     /**
      * @var int
      *
@@ -53,18 +56,17 @@ class Post
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts", cascade={"remove"})
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 
     /**
-     * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Tag", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
      * @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
      */
-    private $tag;
+    private $tags;
 
     /**
      * @var int
@@ -75,12 +77,13 @@ class Post
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post", cascade={"remove"})
      */
     private $comments;
 
     public function __construct()
     {
+       $this->tags = new ArrayCollection();
        $this->comments = new ArrayCollection();
     }
 

@@ -28,6 +28,8 @@ class PostController extends Controller
         return $this->render("post/post.html.twig", array("post" => $post));
     }
 
+
+
     /**
      * @Route("post/", name="create_post")
      * @Method("POST")

@@ -37,7 +37,7 @@ class Category
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="category", cascade={"remove"})
      */
     private $posts;
 
@@ -102,6 +102,14 @@ class Category
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }
 

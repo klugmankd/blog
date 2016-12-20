@@ -46,7 +46,7 @@ class Comment
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comment")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comment", cascade={"remove"})
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     private $post;

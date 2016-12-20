@@ -3,13 +3,16 @@
     {{ parent() }}
     {% block content %}
         <div id="contentBlock">
-        {% for record in records %}
-            <div class="post">
-                <div class="titlePost">{{ record.title }}</div>
-                <div class="contentPost">{{ record.content }}</div>
-                <a class="animation" href="{{ path('show_post', {'id': record.id}) }}">Read more</a>
+            {% for record in pagination %}
+                <div class="post">
+                    <div class="titlePost">{{ record.title }}</div>
+                    <div class="contentPost">{{ record.description }}...</div>
+                    <a class="animation" href="{{ path('show_post', {'id': record.id}) }}">Read more</a>
+                </div>
+            {% endfor %}
             </div>
-        {% endfor %}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
         </div>
     {% endblock %}
 {% endblock %}

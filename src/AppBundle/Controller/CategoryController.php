@@ -13,20 +13,18 @@ class CategoryController extends Controller
 {
 
     /**
-     * @Route("category/{id}", name="show_category")
-     * @Method("GET")
+     * @Route("category/", name="categories")
      */
     public function showAction(Request $request) {
         $category = $this->getDoctrine()
             ->getRepository('AppBundle:Category')
-            ->find($request->get('id'));
-
+            ->findAll();
         if (!$category) {
             throw $this->createNotFoundException(
                 'No product found for id '.$request->get('id')
             );
         }
-        return new Response("Category was found: ".$category->getName());
+        return $this->render("post/categories.html.twig", array("categories" => $category));
     }
 
     /**

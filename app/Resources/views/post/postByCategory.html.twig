@@ -1,0 +1,18 @@
+{% extends "blog.html.twig" %}
+{% block body %}
+    {{ parent() }}
+    {% block content %}
+        <div id="contentBlock">
+            {% block category %}
+                <div id="categoryName">Пости з категорії {{ category.name }}</div>
+            {% endblock %}
+        {% for post in posts %}
+            <div class="post">
+                <div class="titlePost">{{ post.title }}</div>
+                <div class="contentPost">{{ post.description }}...</div>
+                <a class="animation" href="{{ path('show_post', {'id': post.id}) }}">Read more</a>
+            </div>
+        {% endfor %}
+        </div>
+    {% endblock %}
+{% endblock %}

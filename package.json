@@ -1,0 +1,32 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klugmankd/blog.git"
+  },
+  "author": "klugmankd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/klugmankd/blog/issues"
+  },
+  "homepage": "https://github.com/klugmankd/blog#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-less": "^3.3.0",
+    "gulp-uglify": "^2.0.0",
+    "less": "^2.7.1"
+  }
+}
