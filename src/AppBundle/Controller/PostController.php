@@ -3,9 +3,13 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Post;
+use AppBundle\Type\PostType;
+use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,21 +36,24 @@ class PostController extends Controller
 
     /**
      * @Route("post/", name="create_post")
-     * @Method("POST")
      */
     public function createAction(Request $request) {
         $post = new Post();
-        $post->setTitle($request->get('title'));
-        $post->setDescription($request->get('description'));
-        $post->setContent($request->get('content'));
-        $post->setTag($request->get('tag'));
-        $post->setCategory($request->get('category'));
-        $post->setAuthor($request->get('author'));
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($post);
-        $em->flush();
-
-        return new Response('Saved new post with name: '.$post->getTitle());
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+        $validator = $this->get('validator');
+        $errors = $validator->validate($post);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+            if (count($errors) > 0) {
+                $errorsString = (string) $errors;
+                return new Response($errorsString);
+            } else return $this->redirectToRoute("homepage");
+        } else return $this->render('post/addPost.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**

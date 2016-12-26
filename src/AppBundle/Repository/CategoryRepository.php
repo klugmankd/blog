@@ -13,4 +13,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
+    public function getAllCategories()
+    {
+        $query = $this->getEntityManager()->createQuery('SELECT c FROM AppBundle:Category c ORDER BY c.id DESC');
+        return $query;
+    }
 }

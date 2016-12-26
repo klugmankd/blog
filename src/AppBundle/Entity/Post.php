@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post
@@ -29,6 +30,12 @@ class Post
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=100)
+     * @Assert\NotBlank()
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 100
+     * )
      */
     private $title;
 
@@ -36,6 +43,12 @@ class Post
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=200, nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255
+     * )
      */
     private $description;
 
@@ -43,15 +56,13 @@ class Post
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 2
+     * )
      */
     private $content;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdDate", type="datetime")
-     */
-    private $createdDate;
 
     /**
      * @var int

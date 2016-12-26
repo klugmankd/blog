@@ -1,0 +1,14 @@
+{% extends "blog.html.twig" %}
+{% block body %}
+    {{ parent() }}
+    {% block content %}
+        <div id="contentBlock">
+            <div class="form">
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                        <input type="submit" value="Create Post" class="button animation" />
+                {{ form_end(form) }}
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}
