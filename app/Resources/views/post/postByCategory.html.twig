@@ -4,7 +4,7 @@
     {% block content %}
         <div id="contentBlock">
             {% block category %}
-                <div id="categoryName">Пости з категорії {{ category.name }}</div>
+                <div class="title">Пости з категорії {{ category.name }}</div>
             {% endblock %}
         {% for post in posts %}
             <div class="post">

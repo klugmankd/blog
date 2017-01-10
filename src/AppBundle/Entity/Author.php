@@ -57,13 +57,12 @@ class Author
      *
      * @param integer $user
      *
-     * @return Author
      */
     public function setUser($user)
     {
         $this->user = $user;
 
-        return $this;
+//        return $this;
     }
 
     /**

@@ -1,0 +1,14 @@
+{% extends "blog.html.twig" %}
+{% block body %}
+    {{ parent() }}
+    {% block content %}
+        <div id="contentBlock">
+            {% block newTitle %}
+                <div class="title">Додати пост</div>
+            {% endblock %}
+            {% block form %}
+                {{ render(controller('AppBundle:Post:create')) }}
+            {% endblock %}
+        </div>
+    {% endblock %}
+{% endblock %}

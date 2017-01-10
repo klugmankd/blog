@@ -3,13 +3,11 @@
 namespace AppBundle\Type;
 
 
-use AppBundle\Controller\PostController;
-use AppBundle\Entity\Category;
 use AppBundle\Entity\Post;
+use AppBundle\Entity\Tag;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,7 +40,16 @@ class PostType extends AbstractType
                 'attr'  => array('class' => 'field animation'),
                 'label_attr' => array('class' => 'label'),
                 'choice_label' => 'name'
-            ));
+            ))
+            ->add('tags', EntityType::class, [
+                    'class' => Tag::class,
+                    'multiple' => true,
+                    'expanded' => true,
+                    'attr'  => array('class' => 'field animation'),
+                    'label_attr' => [
+                        'class' => 'label', ],
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

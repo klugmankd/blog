@@ -1,9 +1,12 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/service_container.html
 parameters:
-#    parameter_name: value
+    app.paginateManager.limit : 3
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+  app.form_manager:
+        class: AppBundle\Services\FormManager
+        arguments: ["@doctrine", "@form.factory"]
+  app.paginate_manager:
+        class: AppBundle\Services\PaginateManager
+        arguments: ['%app.paginateManager.limit%']

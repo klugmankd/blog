@@ -1,0 +1,13 @@
+{% extends "blog.html.twig" %}
+{% block body %}
+    {{ parent() }}
+    {% block content %}
+        <div id="contentBlock">
+            <div id="menu">
+                <a class="animation menu" href="{{ path('new_post')}}">Додати пост</a>
+                <a class="animation menu" href="{{ path('new_tag')}}">Додати тег</a>
+                <a class="animation menu" href="{{ path('new_category')}}">Додати категорію</a>
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

@@ -3,7 +3,9 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Author;
 use AppBundle\Entity\User;
+use AppBundle\Type\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,17 +37,19 @@ class UserController extends Controller
      */
     public function createAction(Request $request) {
         $user = new User();
-        $user->setFirstName($request->get('firstName'));
-        $user->setLastName($request->get('lastName'));
-        $user->setUsername($request->get('username'));
-        $user->setEmail($request->get('email'));
-        $user->setPassword($request->get('password'));
-        $user->setBirthday($request->get('birthday'));
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
-
-        return new Response('Saved new user with username: '.$user->getUsername());
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        $validator = $this->get('validator');
+        $errors = $validator->validate($user);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            if (count($errors) > 0) {
+                $errorsString = (string) $errors;
+                return new Response($errorsString);
+            } else return new Response("user id - ".$user->getId());
+        } else return $this->redirectToRoute("homepage");
     }
 
     /**

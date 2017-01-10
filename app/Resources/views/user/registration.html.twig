@@ -4,9 +4,9 @@
     {% block content %}
         <div id="contentBlock">
             <div class="form">
-                {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                        <input type="submit" value="Create Post" class="button animation" />
+                {{ form_start(form, { 'action': path('create_user') })}}
+                {{ form_widget(form) }}
+                <input type="submit" value="Sign up" class="button animation" />
                 {{ form_end(form) }}
             </div>
         </div>

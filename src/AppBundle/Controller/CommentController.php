@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Comment;
+use AppBundle\Type\CommentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,37 +14,45 @@ use Symfony\Component\HttpFoundation\Response;
 class CommentController extends Controller
 {
     /**
-     * @Route("comment/{id}", name="show_comment")
+     * @Route("comment/{idPost}", name="show_comment")
      * @Method("GET")
      */
     public function showAction(Request $request) {
-        $comment = $this->getDoctrine()
-            ->getRepository('AppBundle:Comment')
-            ->find($request->get('id'));
+        $em = $this->getDoctrine()->getEntityManager();
+        $comments = $em->getRepository('AppBundle:Comment')->getAllCommentsByPost($request->get('idPost'));
 
-        if (!$comment) {
+        if (!$comments) {
             throw $this->createNotFoundException(
                 'No product found for id '.$request->get('id')
             );
         }
-        return new Response("Comment was found: ".$comment->getName());
+        return $this->render("post/comment.html.twig", array("comments" => $comments));
     }
 
     /**
      * @Route("comment/", name="create_comment")
-     * @Method("POST")
+     * @Method({"GET", "POST"})
      */
     public function createAction(Request $request) {
         $comment = new Comment();
-        $comment->setUser($request->get('user'));
-        $comment->setContent($request->get('content'));
-        $comment->setCreateDate($request->get('date'));
-        $comment->setPost($request->get('post'));
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($comment);
-        $em->flush();
-
-        return new Response('Saved new Comment with name: '.$comment->getContent());
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        $validator = $this->get('validator');
+        $errors = $validator->validate($comment);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $comment->setPost($request->get('idPost'));
+            $em->persist($comment);
+            $em->flush();
+            if (count($errors) > 0) {
+                $errorsString = (string) $errors;
+                return new Response($errorsString);
+            } else $this->redirect("post/".$request->get('idPost'));
+        }
+        return $this->render("form/form.html.twig", array(
+//            "comment" => $comment,
+            "form" => $form->createView()
+        ));
     }
 
     /**

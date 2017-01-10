@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
+use AppBundle\Type\CategoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -33,13 +34,21 @@ class CategoryController extends Controller
      */
     public function createAction(Request $request) {
         $category = new Category();
-        $category->setName($request->get('name'));
-        $category->setDescription($request->get('description'));
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($category);
-        $em->flush();
-
-        return new Response('Saved new category with name: '.$category->getName());
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+        $validator = $this->get('validator');
+        $errors = $validator->validate($category);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+            if (count($errors) > 0) {
+                $errorsString = (string) $errors;
+                return new Response($errorsString);
+            } else return $this->redirectToRoute("new_category");
+        } else return $this->render('form/form.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**

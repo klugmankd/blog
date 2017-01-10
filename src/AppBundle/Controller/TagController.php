@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Tag;
+use AppBundle\Type\TagType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,12 +36,21 @@ class TagController extends Controller
      */
     public function createAction(Request $request) {
         $tag = new Tag();
-        $tag->setName($request->get('name'));
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($tag);
-        $em->flush();
-
-        return new Response('Saved new tag with name: '.$tag->getName());
+        $form = $this->createForm(TagType::class, $tag);
+        $form->handleRequest($request);
+        $validator = $this->get('validator');
+        $errors = $validator->validate($tag);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($tag);
+            $em->flush();
+            if (count($errors) > 0) {
+                $errorsString = (string) $errors;
+                return new Response($errorsString);
+            } else return $this->redirectToRoute("homepage");
+        } else return $this->render('form/form.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**

@@ -74,7 +74,7 @@ class Post
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", inversedBy="posts")
      * @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
      */
     private $tags;
@@ -229,27 +229,35 @@ class Post
     }
 
     /**
-     * Set tag
+     * Get tags.
      *
-     * @param integer $tag
-     *
-     * @return Post
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function setTag($tag)
+    public function getTags()
     {
-        $this->tag = $tag;
-
-        return $this;
+        return $this->tags;
     }
 
     /**
-     * Get tag
+     * Add tag.
      *
-     * @return int
+     * @param Tag $tag
+     *
+     * @return Post
      */
-    public function getTag()
+    public function addTag(Tag $tag)
     {
-        return $this->tag;
+        $this->tags[] = $tag;
+        return $this;
+    }
+    /**
+     * Remove tag.
+     *
+     * @param Tag $tag
+     */
+    public function removeTag(Tag $tag)
+    {
+        $this->tags->removeElement($tag);
     }
 
     /**
@@ -274,6 +282,38 @@ class Post
     public function getAuthor()
     {
         return $this->author;
+    }
+
+
+    /**
+     * Add comment.
+     *
+     * @param Comment $comment
+     *
+     * @return Post
+     */
+    public function addComment(Comment $comment)
+    {
+        $this->comments[] = $comment;
+        return $this;
+    }
+    /**
+     * Remove comment.
+     *
+     * @param Comment $comment
+     */
+    public function removeComment(Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+    /**
+     * Get comments.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
 

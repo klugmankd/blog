@@ -33,6 +33,17 @@ class PostRepository extends EntityRepository
         $query = $this->getEntityManager()->createQuery('SELECT c FROM AppBundle:Post c WHERE c.author = :id');
         $query->setParameters(array('id' => $id));
         return $query->getResult();
+
+    }
+
+    public function searchPostByTitle($criteria)
+    {
+         $query = $this->createQueryBuilder('post')
+            ->andWhere('post.title LIKE :criteria')
+            ->setParameter(':criteria', '%'.$criteria.'%')
+            ->getQuery()
+            ->getResult();
+        return $query;
     }
 
     public function paginate($dql, $page = 1, $limit = 5)

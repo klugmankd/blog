@@ -70,6 +70,7 @@ header ul li a:hover {
 #contentBlock {
     padding-top: 2vh;
     width: 58%;
+    min-height: 10vh;
     margin-left: 20%;
     padding-left: 1%;
     margin-top: 1vh;
@@ -103,7 +104,7 @@ header ul li a:hover {
     padding: 1%;
 }
 
-#contentBlock .post a {
+#contentBlock .post a, .menu {
     text-decoration: none;
     float: right;
     color: rgb(98, 157, 184);
@@ -112,12 +113,24 @@ header ul li a:hover {
     border-bottom: 2px solid rgb(98, 157, 184);
 }
 
-#contentBlock .post a:hover {
+#contentBlock .post a:hover, #menu .menu:hover {
     color: rgb(19, 109, 150);
     background-color: rgb(243, 251, 255);
     border-radius: 5px;
     border: 2px solid rgb(98, 157, 184);
 }
+
+#menu {
+    text-align: center;
+    font-size: 1.4em;
+}
+
+#menu .menu {
+    text-decoration: none;
+    border-color: rgba(0,0,0,0);
+    float: none;
+}
+
 
 #contentBlock .col {
     padding: 2%;
@@ -139,7 +152,7 @@ header ul li a:hover {
     width: 43%;
 }
 
-#categoryName {
+.title {
     text-align: center;
     font-family: "Courier 10 Pitch";
     font-size: 1.7em;
@@ -223,4 +236,31 @@ header ul li a:hover {
 }
 #contentBlock .form .button:hover {
     border-bottom: 2px solid rgb(41, 109, 118)
+}
+
+#contentBlock #comments {
+    border: 2px dashed rgb(90, 177, 216);
+    width: 80%;
+    margin-left: 10%;
+}
+#contentBlock #comments .comment {
+    background-color:rgb(196, 231, 247);
+    width: 96%;
+    padding: 2%;
+    border-bottom: 2px dashed rgb(90, 177, 216);
+    color: rgb(16, 91, 118);
+    display: inline-block;
+}
+
+#contentBlock #comments .comment .authorComment {
+    text-align: right;
+    text-transform: lowercase;
+    font-size: 1.4em;
+    border-bottom: 2px solid rgb(19, 109, 150);
+    padding: 1%;
+    color: rgb(19, 109, 150);
+}
+
+#contentBlock #comments .comment .contentComment {
+    padding: 1%;
 }

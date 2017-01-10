@@ -12,17 +12,15 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthorController extends Controller
 {
     /**
-     * @Route("author/", name="create_author")
-     * @Method("POST")
+     * @Route("author/{id}", name="create_author")
      */
     public function createAction(Request $request) {
         $author = new Author();
-        $author->setUser($request->get('user'));
+        $author->setUser('8');
         $em = $this->getDoctrine()->getManager();
         $em->persist($author);
         $em->flush();
-
-        return new Response('Saved new Author with name: '.$author->getName());
+        return new Response('User saved');
     }
 
     /**

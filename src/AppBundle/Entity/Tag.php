@@ -30,7 +30,8 @@ class Tag
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="tag")
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Post", mappedBy="tags", cascade={"persist", "remove"})
      */
     private $posts;
 
@@ -69,6 +70,24 @@ class Tag
      * @return string
      */
     public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add pos.
+     *
+     * @param Post $post
+     *
+     * @return Tag
+     */
+    public function addArticle(Post $post)
+    {
+        $this->posts[] = $post;
+        return $this;
+    }
+
+    public function __toString()
     {
         return $this->name;
     }

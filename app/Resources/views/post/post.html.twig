@@ -3,10 +3,25 @@
     {{ parent() }}
     {% block content %}
         <div id="contentBlock">
+            <a class="menu" href="{{ path('update_post', {'id': post.id}) }}">Редагувати</a>
             <div class="post">
                 <div class="titlePost">{{ post.title }}</div>
                 <div class="contentPost">{{ post.content }}</div>
             </div>
+            {% block form %}
+                    {% block commentTitle %}
+                        <div class="title">Коментарі</div>
+                    {% endblock %}
+                    {{ render(controller('AppBundle:Comment:create', {'idPost': post.id}))}}
+                    <div id="comments">
+                        {% for comment in comments %}
+                            <div class="comment">
+                                <div class="authorComment">Kostya</div>
+                                <div class="contentComment">{{ comment.content }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+            {% endblock %}
         </div>
     {% endblock %}
 {% endblock %}
